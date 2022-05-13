@@ -102,11 +102,6 @@ Original images are 256 x 256 grayscale DICOM format
 
 Download here TFrecords: https://drive.google.com/drive/folders/1bYoJMycuKsTg2LUWRKircUzjtQYYGzNf?usp=sharing
 
-#### Attribution: 
-
-Radau P, Lu Y, Connelly K, Paul G, Dick AJ, Wright GA. "Evaluation Framework for
-    Algorithms Segmenting Short Axis Cardiac MRI." The MIDAS Journal -Cardiac MR Left
-    Ventricle Segmentation Challenge, http://hdl.handle.net/10380/3070
 
 # Image Segmentation
 
@@ -138,37 +133,3 @@ Inside aml-pipeline.ipynb notebook you have the correspondant cells to execute T
 ![tensorboard](readme/tensorboard_execution.png)
 
 Tensorboard hooks into Keras through a [training callback](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/TensorBoard)
-
-<a id="References"></a>
-# References
-
-Thanks to **NVIDIA** and **Tensorflow** Community for give the facilities to obtains this kind of dataset and lend for everyone the opportunity to train, analyze and prove this kind of images that usually we found that are private.
-
-- [Tensorflow 2.0](https://www.tensorflow.org/learn)
-- [Azure Machine Learning](https://azure.microsoft.com/es-es/services/machine-learning/)
-- [UNET](https://arxiv.org/abs/1505.04597)
-
-<a id="1"></a>
-[1] Sunnybrook cardiac images from earlier competition https://smial.sri.utoronto.ca/LV_Challenge/Data.html
-
-<a id="2"></a>
-[2] This "Sunnybrook Cardiac MR Database" is made available under the CC0 1.0 Universal license described above, and with more detail here: https://www.cardiacatlas.org/studies/sunnybrook-cardiac-data/
-
-<a id="3"></a>
-[3] Attribution:
-Radau P, Lu Y, Connelly K, Paul G, Dick AJ, Wright GA. "Evaluation Framework for Algorithms Segmenting Short Axis Cardiac MRI." The MIDAS Journal -Cardiac MR Left Ventricle Segmentation Challenge, http://hdl.handle.net/10380/3070
-
-<a id="4"></a>
-[4] http://fcn.berkeleyvision.org/
-
-<a id="5"></a>
-[5] Long, Shelhamer, Darrell; "Fully Convoutional Networks for Semantic Segmentation", CVPR 2015.
-
-<a id="6"></a>
-[6] Zeiler, Krishnan, Taylor, Fergus; "Deconvolutional Networks", CVPR 2010.
-
-<a id="7"></a>
-[7] https://www.kaggle.com/c/second-annual-data-science-bowl/details/deep-learning-tutorial
-
-<a id="8"></a>
-[8] https://www.tensorflow.org/tutorials/images/segmentation
