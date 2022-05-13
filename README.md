@@ -1,132 +1,135 @@
-# Create an Azure Machine Learning Workspace
+anguages	products	description
+python
+Azure Machine Learning Service
+Tensorflow 2.0
+Image segmentation TensorFlow model for Cardiac MRI's
+sample_prediction
 
-This template creates an Azure Machine Learning service workspace.
+Image Segmentation Cardiac MRI's with Azure Machine Learning Service and TensorFlow
+There are a variety of important image analysis deep learning applications that need to go beyond detecting individual objects within an image and instead segment the image into spatial regions of interest. For example, in medical imagery analysis it is often important to separate the pixels corresponding to different types of tissue, blood or abnormal cells so that we can isolate a particular organ. In this self-paced, hands-on lab we will use the TensorFlow machine learning framework to train and evaluate an image segmentation network using a medical imagery dataset.
 
-If you are new to Azure Machine Learning, see:
+Objectives
+Understand how Neural Networks can solve imaging problems
+Use Transpose Convolutional Neural Networks
+Use Keras and TensorFlow 2 to analyze image data
+Use Azure Machine learning Service
+Technology
+Azure Machine Learning
+Tensorflow 2.0
+Unet Architecture
+Why Azure Machine Learning Service?
+mlops
 
-- [Azure Machine Learning service](https://azure.microsoft.com/services/machine-learning-service/)
-- [Azure Machine Learning documentation](https://docs.microsoft.com/azure/machine-learning/)
-- [Azure Machine Learning template reference](https://docs.microsoft.com/azure/templates/microsoft.machinelearningservices/allversions)
-- [Quickstart templates](https://azure.microsoft.com/resources/templates/)
+Azure Machine Learning Service give to use the capability to use MLOps techniques, it empowers data scientists and app developers to help bring ML models to production.
 
-If you are new to template development, see:
+This MLOps functionalities that Azure Machine Learning have, enables you to track / version / audit / certify / re-use every asset in your ML lifecycle and provides orchestration services to streamline managing this lifecycle.
 
-- [Azure Resource Manager documentation](https://docs.microsoft.com/azure/azure-resource-manager/)
-- [Create an Azure Machine Learning service workspace by using a template](https://docs.microsoft.com/azure/machine-learning/service/how-to-create-workspace-template)
+What are the key challenges we wish to solve with?
+mlops_flow
 
-## In order to run the demos you will need to retrieve the following information:
+Model reproducibility & versioning
 
-- subscription id: You can get this by going to <azure.portal.com> and logging into your account. Search for subscriptions using the search bar,click on your subscription and copy the id.
-- resource group: the name of the resource group you created in the setup steps
-compute target name: the name of the compute target you created in the setup steps
-Make sure to never commit any of these details to Git / GitHub
+Track, snapshot & manage assets used to create the model
+Enable collaboration and sharing of ML pipelines
+Model packaging & validation
 
-- location: eastus, westeurope...
+Support model portability across a variety of platforms
+Certify model performance meets functional and latency requirements
+[Not implemented] Model auditability & explainability
 
-# Azure Machine Learning Workspace
+Maintain asset integrity & persist access control logs
+Certify model behavior meets regulatory & adversarial standards
+[Not implemented] Model deployment & monitoring
 
-The purpose of this ARM Template is to deploy an **Azure Machine Learning workspace** with a **Storage account**, **Container registry**, **Key vault** and **Application Insights**.
+Release models with confidence
+Monitor & know when to retrain by analyzing signals such as data drift
+Deploy Infrastructure
+Follow the next documentation if you dont have Azure Machine Learning up and running yet
 
-But let's understand a bit better how **Azure Machine Learning workspace** work.
+Set up Azure Resources with Azure Reource Manager (ARM)
+Virtual environment to execute Azure Machine Learning notebook
+Ananconda and Jupyter Notebook Local
+To create the virual environment, we need to have anaconda installed in our computer. It can be downloaded in this link
 
-## Overview
+Instalation: https://www.anaconda.com/distribution/
+Conda commands to create local env by environment.yml: conda env create -f environment.yml
+Set conda env into jupyter notebook: python -m ipykernel install --user --name <environment_name> --display-name "Python (<environment_name>)"
+Once the environment is created, to activate it:
 
-### What is machine learning
+conda activate <environment-name>
 
-Machine learning is a data science technique that allows computers to use existing data to forecast future behaviors, outcomes, and trends. By using machine learning, computers learn without being explicitly programmed.
+To deactivate the environment:
 
-Forecasts or predictions from machine learning can make apps and devices smarter. For example, when you shop online, machine learning helps recommend other products you might want based on what you've bought. Or when your credit card is swiped, machine learning compares the transaction to a database of transactions and helps detect fraud. And when your robot vacuum cleaner vacuums a room, machine learning helps it decide whether the job is done.
+conda deactivate <environment-name>
 
-### What is Azure Machine Learning
+Dataset
+Cardiac MRI short-axis (SAX) scans:
 
-Azure Machine Learning provides a cloud-based environment you can use to prep data, train, test, deploy, manage, and track machine learning models. Start training on your local machine and then scale out to the cloud. The service fully supports open-source technologies such as PyTorch, TensorFlow, and sci-kit-learn and can be used for any kind of machine learning, from classical ml to deep learning, supervised and unsupervised learning.
+Sunnybrook cardiac images from earlier competition http://smial.sri.utoronto.ca/LV_Challenge/Data.html
 
-Explore and prepare data, train and test models, and deploy them using rich tools such as:
+"Sunnybrook Cardiac MR Database" is made available under the CC0 1.0 Universal license described above, and with more detail here: http://creativecommons.org/publicdomain/zero/1.0/
 
-- A visual interface in which you can drag-n-drop modules to build your experiments and then deploy models
-- Jupyter notebooks in which you use the SDKs to write your code, such as these sample notebooks
-- Visual Studio Code extension
+Original images are 256 x 256 grayscale DICOM format
 
-For more information, you can consult [Azure Machine Learning Documentation](https://docs.microsoft.com/en-gb/azure/machine-learning/)
+Output is a tensor of size 256 x 256 x 2
 
-### What is an Azure Machine Learning workspace
+Each pixel belongs to one of two classes
 
-The workspace is the top-level resource for Azure Machine Learning, providing a centralized place to work with all the artifacts you create when you use Azure Machine Learning. The workspace keeps a history of all training runs, including logs, metrics, output, and a snapshot of your scripts. You use this information to determine which training run produces the best model.
+Training set consist of 234 images
 
-Once you have a model you like, you register it with the workspace. You then use the registered model and scoring scripts to deploy to Azure Container Instances, Azure Kubernetes Service, or a field-programmable gate array (FPGA) as a REST-based HTTP endpoint. You can also deploy the model to an Azure IoT Edge device as a module.
+Validation set consist of 26 images
 
-## The Template
+Download here TFrecords: https://drive.google.com/drive/folders/1bYoJMycuKsTg2LUWRKircUzjtQYYGzNf?usp=sharing
 
-Don't let the size of the template scares you. The structure is very intuitive and once that you get the gist of it, you will see how much easier your life will be deploying resources to Azure.
+Attribution:
+Radau P, Lu Y, Connelly K, Paul G, Dick AJ, Wright GA. "Evaluation Framework for Algorithms Segmenting Short Axis Cardiac MRI." The MIDAS Journal -Cardiac MR Left Ventricle Segmentation Challenge, http://hdl.handle.net/10380/3070
 
-These are the parameters on the template, they already have values inserted, so you don't need to worry about changing them.
+Image Segmentation
+In this repository you will work through a series of exercises performing image segmentation, also called semantic segmentation. Semantic segmentation is the task of placing each pixel into a specific class. In a sense it's a classification problem where you'll classify on a pixel basis rather than an entire image. In this lab the task will be classifying each pixel in a cardiac MRI image based on whether the pixel is a part of the left ventricle (LV) or not.
 
-Here the list of all parameters:
+This lab is not an introduction to deep learning, nor is it intended to be a rigorous mathematical formalism of convolutional neural networks. We'll assume that you have at least a passing understanding of neural networks including concepts like forward and backpropagation, activations, SGD, convolutions, pooling, bias, and the like. It is helpful if you've encountered convolutional neural networks (CNN) already and you understand image recognition tasks. The lab will use Google's TensorFlow machine learning framework so if you have Python and TensorFlow experience it is helpful, but not required. Most of the work we'll do in this lab is not coding per se, but setting up and running training and evaluation tasks using TensorFlow.
 
-Parameter | Suggested value | Description
-:--------------- | :------------- |:---------------------
-**workspaceName** | globally unique name | The name of the machine learning workspace.
-**location** | location | This template takes the location of your Resource Group. Treating appropriately the available locations for each resource.
+Input Data Set
+dataset
 
-## Deployment
+The data set you'll be utilizing is a series of cardiac images (specifically MRI short-axis (SAX) scans) that have been expertly labeled. See References for full citation information.
 
-There are a few ways to deploy this template.
-You can use [PowerShell](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-template-deploy), [Azure CLI](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-template-deploy-cli), [Azure Portal](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-template-deploy-portal) or your favorite SDK.
+Four representative examples of the data are shown below. Each row of images is an instance of the data. On the left are the MRI images and the right are the expertly-segmented regions (often called contours). The portions of the images that are part of the LV are denoted in white. Note that the size of LV varies from image to image, but the LV typically takes up a relatively small region of the entire image.
 
-For Azure CLI I'm using the Visual Code with Azure CLI extensions. If you would like you can find more information [here](https://code.visualstudio.com/docs/azure/extensions). But bare in mind that you don't need to use the Visual Code app, you can stick with the always present **Command Line** on Windows or the Linux **bash terminal**.
+The data extraction from the raw images and then subsequent preparation of these images for ingestion into TensorFlow will not be showcased in this lab. Suffice it to say that data preparation is a non-trivial aspect of machine learning workflows and is outside the scope of this lab.
 
-### Using Azure CLI with Visual Code
+For those that are interested in the details, we obtained guidance and partial code from a prior Kaggle competition on how to extract the images properly. At that point we took the images, converted them to TensorFlow records (TFRecords), and stored them to files. TFRecords are a special file format provided by TensorFlow, which allow you to use built-in TensorFlow functions for data management including multi-threaded data reading and sophisticated pre-processing of the data such as randomizing and even augmenting the training data.
 
-In the terminal window type: **az login**
+The images themselves are originally 256 x 256 grayscale DICOM format, a common image format in medical imaging. The label is a tensor of size 256 x 256 x 2. The reason the last dimension is a 2 is that the pixel is in one of two classes so each pixel label has a vector of size 2 associated with it. The training set is 234 images and the validation set (data NOT used for training but used to test the accuracy of the model) is 26 images.
 
+TensorBoard
+In this experiment we generate TensorFlow logs. Tensorboard allows you to visualize many aspects of your program. In TensorBoard, you can see a visual representation of your computation graph and you can plot different metrics of your computation such as loss, accuracy, and learning rate. Essentially any data that is generated during the execution of TensorFlow can be visually displayed by TensorBoard with the addition of a few extra API calls in your program.
 
-You will be redirected to the Azure Portal in your web browser where you can insert your credentials and log in.
+Inside aml-pipeline.ipynb notebook you have the correspondant cells to execute Tensorboard after model training.
 
-After logging in, you will see your credentials on the terminal.
+tensorboard
 
-To set the right subscription, type following command:
-
-#### az account set --subscription "your subscription id"
-
-### Resource Group
-
-Now you need a Resource Group for our deployment. If you haven't already created a Resource Group, you can do it now. If you are new to Azure and wonder what is a Resource Group? Bare with me! A Resource Group is a container that holds related resources for an Azure solution. The resource group includes those resources that you want to manage as a group. Simply saying: it's like a folder that contains files. Simple as that.
-
-To create a Resource Group, you need a name and a location for your Resource Group.
-
-For a list of locations, type: **az account list-locations**
-
-The Machine Learning service isn't yet available for all locations. Check the availability of locations [here](https://azure.microsoft.com/en-gb/global-infrastructure/services/?products=).
-
-To create the Resource group, type the command:
-
-#### az group create --name "resource-group" --location "your location"
-
-Super simple, right? Now that we have our **Resource Group** created, let's deploy the **Azure Machine Learning workspace** using the ```./DeployUnified.ps1``` script.
-
-Script parameters:
-
-
+Tensorboard hooks into Keras through a training callback
 
 
-## How to shutdown your resources
+References
+Thanks to NVIDIA and Tensorflow Community for give the facilities to obtains this kind of dataset and lend for everyone the opportunity to train, analyze and prove this kind of images that usually we found that are private.
 
-## Using the portal
+Tensorflow 2.0
+Azure Machine Learning
+UNET
+[1] Sunnybrook cardiac images from earlier competition https://smial.sri.utoronto.ca/LV_Challenge/Data.html
 
-On the portal, open your Resource Group, if you want to remove the **Azure Machine Learning workspace **, you can just click on the [Delete] Button.
+[2] This "Sunnybrook Cardiac MR Database" is made available under the CC0 1.0 Universal license described above, and with more detail here: https://www.cardiacatlas.org/studies/sunnybrook-cardiac-data/
 
-Just refresh your screen and you are good to go.
+[3] Attribution: Radau P, Lu Y, Connelly K, Paul G, Dick AJ, Wright GA. "Evaluation Framework for Algorithms Segmenting Short Axis Cardiac MRI." The MIDAS Journal -Cardiac MR Left Ventricle Segmentation Challenge, http://hdl.handle.net/10380/3070
 
-### Resources
+[4] http://fcn.berkeleyvision.org/
 
-- [Azure Machine learning](https://azure.microsoft.com/services/machine-learning )
-- [Create development environment for Machine learning](https://docs.microsoft.com/azure/machine-learning/service/how-to-configure-environment)
-- [Hyperparameter tuning in AML](https://docs.microsoft.com/azure/machine-learning/service/how-to-tune-hyperparameters)
-- [AML Python SDK](https://docs.microsoft.com/azure/machine-learning/service/how-to-configure-environment)
-- [AML Pipelines](https://docs.microsoft.com/azure/machine-learning/service/how-to-create-your-first-pipeline)
-- [Getting started with Auto ML](https://docs.microsoft.com/azure/machine-learning/service/concept-automated-ml)
-- [Intro to AML – MS Learn](https://docs.microsoft.com/en-us/learn/modules/intro-to-azure-machine-learning-service)
-- [Automate model select with AML - MS Learn](https://docs.microsoft.com/en-us/learn/modules/automate-model-selection-with-azure-automl)
-- [Train local model with AML - MS Learn](https://docs.microsoft.com/en-us/learn/modules/train-local-model-with-azure-mls)
+[5] Long, Shelhamer, Darrell; "Fully Convoutional Networks for Semantic Segmentation", CVPR 2015.
 
-Tags: Azure Machine Learning, Machine Learning, Secrets, Resource Manager, Resource Manager templates, ARM templates
+[6] Zeiler, Krishnan, Taylor, Fergus; "Deconvolutional Networks", CVPR 2010.
+
+[7] https://www.kaggle.com/c/second-annual-data-science-bowl/details/deep-learning-tutorial
+
+[8] https://www.tensorflow.org/tutorials/images/segmentation
